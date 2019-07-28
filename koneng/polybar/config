@@ -1,0 +1,426 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+background = #303030
+background-alt = #f0f0f0
+foreground = #f0f0f0
+foreground-alt = #2d2d2d
+primary = #F4FF3E
+secondary = #e60053
+alert = #bd2c40
+
+[bar/bottom]
+monitor = ${env:MONITOR:eDP}
+width = 100%
+height = 20
+radius = 0
+fixed-center = false
+bottom = true
+;offset-x = 60%
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = #f00
+
+border-size = 6
+border-color = ${colors.background}
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 1
+
+font-0 = GohuFont:pixelsize=13;2
+font-1 = Siji:size=9:antialias=false;2
+font-2 = sans:size=11:antialias=false;2
+font-3 = FontAwesome:size=10.5;1
+font-4 = Kochi Gothic:size=10:antialias=true;0
+
+modules-left = launcher ewmh spotify 
+modules-center = 
+modules-right = volume battery wlan wired-network time sysmenu
+
+tray-position = right
+tray-padding = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/sysmenu]
+type = custom/text
+content = 
+
+; "content" has the same properties as "format-NAME"
+content-background = #f0f0f0
+content-foreground = #2d2d2d
+content-padding = 1
+
+; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c $COMMAND"
+click-left = ~/.config/polybar/scripts/powermenu
+;;click-middle = ~/.config/polybar/scripts/powermenu
+click-right = ~/.config/polybar/scripts/powermenu-alt
+
+; "scroll-(up|down)" will be executed using "/usr/bin/env sh -c $COMMAND"
+;;scroll-up = ~/.config/polybar/scripts/powermenu
+;;scroll-down = ~/.config/polybar/scripts/powermenu
+
+[module/launcher]
+type = custom/text
+content =  
+
+; "content" has the same properties as "format-NAME"
+content-background = #f0f0f0
+content-foreground = #2d2d2d
+content-padding = 1
+
+; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c $COMMAND"
+click-left = ~/.config/polybar/scripts/launcher
+;;click-middle = ~/.config/polybar/scripts/launcher-full
+click-right = ~/.config/polybar/scripts/launcher-alt
+
+; "scroll-(up|down)" will be executed using "/usr/bin/env sh -c $COMMAND"
+;;scroll-up = ~/.config/polybar/scripts/launcher-full
+scroll-down = ~/.config/polybar/scripts/launcher-full
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:16:...%
+format-prefix = " "
+format-prefix-foreground = #EAEFA6
+
+[module/powermenu]
+type = custom/menu
+format-spacing = 1
+label-open = 
+label-open-font = 2
+label-open-foreground = #f0f0f0
+label-close = 
+label-close-foreground = ${colors.foreground}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+menu-0-0 = 
+menu-0-0-foreground = #f0f0f0
+menu-0-0-exec = menu-open-1
+menu-0-1 = 
+menu-0-1-foreground = #f0f0
+menu-0-1-exec = menu-open-2
+menu-1-0 = Reboot ?
+menu-1-0-exec = /sbin/reboot
+;menu-1-1 = 
+menu-1-1-exec = menu-open-0
+menu-2-0 = Poweroff ?
+menu-2-0-exec = /sbin/poweroff
+;menu-2-1 = 
+;menu-2-1-exec = menu-open-0
+
+
+;[module/system]
+;type = custom/script
+;exec = echo " "
+;format = <label>
+;label = " Ubuntu "
+;label-background = ${colors.primary}
+;format-prefix = " ⚓ "
+;format-prefix-background = ${colors.background-alt}
+;format-prefix-foreground = ${colors.foreground-alt}
+
+[module/thunar]
+type = custom/script
+exec = echo " "
+format = <label>
+label = " Thunar "
+label-background = ${colors.primary}
+format-prefix = "  "
+format-prefix-background = ${colors.background-alt}
+format-prefix-foreground = ${colors.foreground-alt}
+click-left = thunar &
+
+[module/chrome]
+type = custom/script
+exec = echo " "
+format = <label>
+label = " Chrome "
+label-background = ${colors.primary}
+format-prefix = "  "
+format-prefix-background = ${colors.background-alt}
+format-prefix-foreground = ${colors.foreground-alt}
+click-left = google-chrome &
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "  "
+format-prefix-background = ${colors.background-alt}
+format-prefix-foreground = ${colors.foreground-alt}
+label =  " %percentage:2%% "
+label-background = ${colors.primary}
+
+[module/ram]
+type = internal/memory
+interval = 2
+format-prefix = "  "
+format-prefix-background = ${colors.background-alt}
+format-prefix-foreground = ${colors.foreground-alt}
+label-background = ${colors.primary}
+label = " %percentage_used%% "
+
+[module/ewmh]
+type = internal/xworkspaces
+pin-workspaces=true
+enable-click=true
+enable-scroll=true
+format=<label-state>
+label-monitor=%name%
+;label-active =%icon%%name%
+label-active =%index%
+label-active-foreground = #303030
+label-active-background = ${colors.primary}
+label-active-underline= #fba922
+label-active-padding=1
+label-occupied =%index%
+label-occupied-background= ${colors.background}
+label-occupied-padding=1
+label-urgent=%index%
+label-urgent-foreground=#000000
+label-urgent-background=#bd2c40
+label-urgent-underline=#9b0a20
+label-empty =%index%
+label-empty-padding=1
+label-empty-background= #F0F0F0
+label-empty-foreground= #2D2D2D
+
+[module/volume]
+type=internal/alsa
+format-volume =<label-volume>
+
+format-volume-prefix=
+format-volume-prefix-background= #F0F0F0
+format-volume-prefix-foreground= #303030
+format-volume-prefix-padding=1
+
+label-volume=%percentage%%
+label-volume-background= ${colors.primary}
+label-volume-foreground= #303030
+label-volume-padding=1
+
+format-muted=<label-muted>
+
+format-muted-prefix=
+format-muted-prefix-padding=1
+format-muted-prefix-background= #F0F0F0
+format-muted-prefix-foreground= #303030
+
+label-muted= 0%
+label-muted-foreground= #F0F0F0
+label-muted-background= #303030
+label-muted-padding=1
+
+format-volume-padding=0
+format-muted-padding=0
+
+ramp-headphones-0=
+
+[module/backlight]
+type = internal/backlight
+card = radeon_bl0
+enable-scroll = true
+
+format = <label>
+format-prefix=
+
+format-prefix-padding=1
+format-prefix-background= #F0F0F0
+format-prefix-foreground= #2D2D2D
+
+label=%percentage%%
+label-background= ${colors.primary}
+label-foreground= #F0F0F0
+label-padding = 1
+
+[module/wired-network]
+type = internal/network
+interface = enp2s0f2
+interval = 3.0
+
+format-connected=<label-connected>
+format-connected-prefix=
+format-connected-prefix-padding=1
+format-connected-prefix-background= #F0F0F0
+format-connected-prefix-foreground= #2D2D2D
+
+label-connected = Connected
+label-connected-background = ${colors.primary}
+label-connected-padding = 1
+
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected=<label-connected>
+format-connected-prefix=
+format-connected-prefix-padding=1
+format-connected-prefix-background= #F0F0F0
+format-connected-prefix-foreground= #2D2D2D
+
+label-connected = %essid%
+label-connected-background = ${colors.primary}
+label-connected-foreground = #303030
+label-connected-padding = 1
+
+;format-disconnected = <label-disconnected>
+;format-disconnected-prefix =
+;format-disconnected-prefix-padding=1
+;format-disconnected-prefix-background= #F0F0F0
+;format-disconnected-prefix-foreground= #2D2D2D
+
+label-disconnected = %ifname% disconnected
+label-disconnected-background = ${colors.primary}
+label-disconnected-foreground = #303030
+label-disconnected-padding = 1
+
+;ramp-signal-0 = "  "
+;ramp-signal-1 = "  "
+;ramp-signal-2 = "  "
+;ramp-signal-3 = "  "
+;ramp-signal-4 = "  "
+;ramp-signal-background = ${colors.background-alt}
+;ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/time]
+type = internal/date
+interval = 5
+
+time = " %H:%M WIB " 
+time-alt = " %H:%M WIB "
+;time = " %A, %d-%m-%y %H:%M " 
+;time-alt = " %A, %d-%m-%y %H:%M "
+
+format-prefix = "  "
+format-prefix-background = ${colors.background-alt}
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %time%
+label-background = ${colors.primary}
+label-foreground = #303030
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+label-discharging-background = ${colors.primary}
+label-charging-background = ${colors.primary}
+label-discharging-foreground = #303030
+label-charging-foreground = #303030
+label-charging-padding = 1
+label-discharging-padding = 1
+format-charging = <animation-charging><label-charging>
+
+format-discharging = <ramp-capacity><label-discharging>
+
+format-full-prefix = "  "
+format-full-prefix-background = ${colors.background-alt}
+format-full-prefix-foreground = 303030
+
+ramp-capacity-0 = "  "
+ramp-capacity-1 = "  "
+ramp-capacity-2 = "  "
+ramp-capacity-background = ${colors.background-alt}
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-background = ${colors.background-alt}
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+
+[global/wm]
+;margin-top = 5
+;margin-bottom = 5
+
+[module/spotify]
+type = custom/script
+exec = ~/.config/polybar/scripts/spotify.sh  %artist% - %title%
+tail = true
+interval = 2
+format-prefix = "  "
+
+[module/previous]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+format-padding = 1
+; Previous song icon
+exec = echo "" 
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+format-underline = #1db954
+line-size = 1
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+
+[module/next]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+format-padding = 1
+; Next song icon
+exec = echo ""
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+format-underline = #1db954
+line-size = 1
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+[module/pause]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+format-padding = 1
+; Next song icon
+exec = echo ""
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+format-underline = #1db954
+line-size = 1
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause"
+
+[module/play]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+format-padding = 1
+; Next song icon
+exec = echo ""
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+format-underline = #1db954
+line-size = 1
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play"
+
+[module/stop]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+format-padding = 1
+; Next song icon
+exec = echo ""
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+format-underline = #1db954
+line-size = 1
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
