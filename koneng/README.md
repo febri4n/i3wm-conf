@@ -9,8 +9,4 @@ Description:
 * htop
 * rofi
 * scrot
-* font
-
-Preview:
-
-![alt text](https://i.imgur.com/vjjJRkZg.png)
+* font & icon
