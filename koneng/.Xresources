@@ -3,10 +3,14 @@
 #include ".colors/koneng"
 
 !! URxvt Appearance
-*.font: xft:Iosevka:style=Regular:size=10
-*.boldFont: xft:Iosevka:style=Bold:size=10
-*.italicFont: xft:Iosevka:style=Italic:size=10
-*.boldItalicFont: xft:Iosevka:style=Bold Italic:size=10
+*.font: xft:Iosevka:style=Regular:size=12, \
+        xft:DejaVu Sans Mono:style=Regular:size=12
+*.boldFont: xft:Iosevka:style=Bold:size=12, \
+        xft:DejaVu Sans Mono:style=Bold:size=12
+*.italicFont: xft:Iosevka:style=Italic:size=12, \
+        xft:DejaVu Sans Mono:style=Italic:size=12
+*.boldItalicFont: xft:Iosevka:style=Bold Italic:size=12, \
+        xft:DejaVu Sans Mono:style=Bold Italic:size=12
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
